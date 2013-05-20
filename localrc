@@ -17,4 +17,4 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 # 
 # Select the bootstrap script/data to use 
 #
-BOOTSTRAP=bootstrap/simple-web.sh
+BOOTSTRAP=bootstrap/setup-drupal.sh

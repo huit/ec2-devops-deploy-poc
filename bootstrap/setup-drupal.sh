@@ -14,7 +14,7 @@ APP_REPO=
 #
 PKGS="puppet git emacs-nox"
 yum -y install ${PKGS}
-cp /etc/system-release /etc/redhat-release # to convince puppet we're a RHEL derivative
+cp -a /etc/system-release /etc/redhat-release # to convince puppet we're a RHEL derivative
 
 #
 # pull, setup and run puppet manifests
