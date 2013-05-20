@@ -30,7 +30,7 @@ usable separation-of-concern between Infrastructure, Platform (OS and configs) a
 in the build of the system, and to 
 
 
-![Architectural, data, and workflow mashup](../master/docs/DevOps%20on%20EC2%20Arch.png&raw=true "Architectural, data, and workflow mashup")
+![Architectural, data, and workflow mashup](../../raw/master/docs/DevOps%20on%20EC2%20Arch.png "Architectural, data, and workflow mashup")
 
 	
 Assumptions
