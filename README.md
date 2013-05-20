@@ -29,9 +29,8 @@ The big picture here is to use bootstrapping and modern devops appraoches to cre
 usable separation-of-concern between Infrastructure, Platform (OS and configs) and Application layers
 in the build of the system, and to 
 
-![Image](../blob/master/public_html/img/nokia.png?raw=true)
 
-![Architectural, data, and workflow mashup](../blob/master/docs/DevOps%20on%20EC2%20Arch.png&raw=true "Architectural, data, and workflow mashup")
+![Architectural, data, and workflow mashup](../master/docs/DevOps%20on%20EC2%20Arch.png&raw=true "Architectural, data, and workflow mashup")
 
 	
 Assumptions
