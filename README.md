@@ -38,6 +38,9 @@ Quick dump of  assumptions/axioms as we approach this.
 Given these assumptions, more concretely let's do this:
 
 - Use EC2-supplied base AMIs: let others secure and manage our images for us (particularly in DevTest).
+-- See http://ec2-downloads.s3.amazonaws.com/AmazonLinuxAMIUserGuide.pdf
+-- This thing is based on CentOS plus some security and functionality patches
+-- It's binary compatible with CentOS 6/RHEL 6.
 - All modifications to image take place after boot.
 - Bootstrap all customization using "cloud-init," which uses the Amazon EC2 metadata service to run automated scripts on boot.
 - Use puppet to produce a reproducible system and platform environment on the remote instance.
@@ -47,7 +50,12 @@ Given these assumptions, more concretely let's do this:
 -- significantly sized media files
 -- any keys or passwords.
 
+Requirements
+------------
 
+Install the EC2 command line utlities, which require a valid Java installation. Also a basic Linux/UNIX 
+command environment, including BASH, awk, grep, etc. Lastly, you'll need Git in order to 
+clone this repository.
 
 QuickStart
 ----------
@@ -56,4 +64,22 @@ This work will be run initially as a shell script from the command line on your 
 machine, using the EC2 command line tools. Ultimately, we'll document how to initiate
 the start and build of the client system from other mechanisms, including from a CI build
 system.
+
+To start, clone this repository (see the top of the page) then edit the _localrc_ file
+to reflect your specific information, and to choose a bootstrap script to provide 
+to cloud-init on the newly launched instance.
+
+    $ git clone [this repository]
+    $ cd ec2-drupal-devops-deploy-poc
+    $ vi localrc
+
+Then from the root directory
+
+   $ ./launch.sh
+   
+This will start up an instance, then push the script specified by the "$BOOTSTRAP" variable   
+to the started instance in the "user-data" meta-data field, which will be consumed by the "cloud-init"
+service on the instance, and executed at the end of the startup sequence. If this is set to 
+
+    BOOTSTRAP=
 
