@@ -27,10 +27,19 @@ Big Picture
 
 The big picture here is to use bootstrapping and modern devops appraoches to create a clear and
 usable separation-of-concern between Infrastructure, Platform (OS and configs) and Application layers
-in the build of the system, and to 
-
+in the build of the system, and to create a foundation for orchestration and continuous integration.
 
 ![Architectural, data, and workflow mashup](../../raw/master/docs/DevOps%20on%20EC2%20Arch.png "Architectural, data, and workflow mashup")
+
+The primary aspect to absorb in this figure is that as you move from left -- where a developer or system 
+starts the process of deploying an instance of an application -- to the far right where the application is 
+tested or used, the process moves from infrastructure to platform to application. By placing the appropriate
+data in separate stores, the data is separated by these levels, and managed by different teams.
+
+The mechanism that allows this is the use of the the user-data field and the "cloud-init" service that consumes 
+this data. The hook mechanism is to name a target repository and optionally a tag or branch in the 
+original deployment creation process; these values are passed doewn the line until it's time to modify the
+system to meet the state specified in these data sources.
 
 	
 Assumptions
