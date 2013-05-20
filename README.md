@@ -67,7 +67,8 @@ system.
 
 To start, clone this repository (see the top of the page) then edit the _localrc_ file
 to reflect your specific information, and to choose a bootstrap script to provide 
-to cloud-init on the newly launched instance.
+to cloud-init on the newly launched instance. In particular, change all the "EC2_*"
+variables to point to your own account resources, and feel free to turn off debugging (set to "n").
 
     $ git clone [this repository]
     $ cd ec2-drupal-devops-deploy-poc
@@ -75,11 +76,20 @@ to cloud-init on the newly launched instance.
 
 Then from the root directory
 
-   $ ./launch.sh
+    $ ./launch.sh
    
 This will start up an instance, then push the script specified by the "$BOOTSTRAP" variable   
 to the started instance in the "user-data" meta-data field, which will be consumed by the "cloud-init"
 service on the instance, and executed at the end of the startup sequence. If this is set to 
 
-    BOOTSTRAP=
+    BOOTSTRAP=bootstrap/simple-web.sh
+
+The resulting instance will boot up and then create a very simple static root web page. 
+To see it, use the instance id values output bu the launch.sh script, and use the command line 
+tool
+
+    $ ec2-describe-instances [instance id]
+
+Which will print out the various metadata about the system. Find the public URL (with the 
+"*compute-1.amazonaws.com domain name) and past it into a browser.
 
