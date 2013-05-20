@@ -14,10 +14,39 @@ Links
 Use links related to this work:
 
 
-- [Markdown Syntax (for this doc)](http://daringfireball.net/projects/markdown/syntax)
+
 - [DevOps in the Cloud eBook/resources](http://www.devopscloud.com/)
 - [cloud-init docs](https://cloudinit.readthedocs.org)
 - [Amazon EC2 command line tools](http://aws.amazon.com/developertools/351)
+- [Amazon Linux](http://aws.amazon.com/amazon-linux-ami/)
+- [Automate EC2 Instance Setup with user-data Scripts](http://alestic.com/2009/06/ec2-user-data-scripts)
+- [Markdown Syntax (for this doc)](http://daringfireball.net/projects/markdown/syntax)
+
+Assumptions
+-----------
+
+Quick dump of  assumptions/axioms as we approach this.
+
+- Try wherever possible to use standards and rely on the work of others (who probably know more than we do!)
+- Everything that is modified from a base standard must go into version control.
+- Be as open as possible. We're not building the next great software company, and we're not storing confidential 
+  data, so be open.
+- If we are trying to store or use confidential data in a Devel/TestBed setup, we should stop, reevaluate certain 
+  life choices, and consider a career in retail sales or manipulative crafts.
+- Make every step reproducible and automated.  If we are hand crafting systems, then ... well, see above.
+  
+Given these assumptions, more concretely let's do this:
+
+- Use EC2-supplied base AMIs: let others secure and manage our images for us (particularly in DevTest).
+- All modifications to image take place after boot.
+- Bootstrap all customization using "cloud-init," which uses the Amazon EC2 metadata service to run automated scripts on boot.
+- Use puppet to produce a reproducible system and platform environment on the remote instance.
+- Use GitHub to store all code-like data publicly.
+- Use Amazon S3 to store any BLOB-like data, and any private data, such as 
+-- Database dumps
+-- significantly sized media files
+-- any keys or passwords.
+
 
 
 QuickStart
