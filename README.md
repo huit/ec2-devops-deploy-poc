@@ -22,6 +22,16 @@ Use links related to this work:
 - [Automate EC2 Instance Setup with user-data Scripts](http://alestic.com/2009/06/ec2-user-data-scripts)
 - [Markdown Syntax (for this doc)](http://daringfireball.net/projects/markdown/syntax)
 
+Big Picture
+-----------
+
+The big picture here is to use bootstrapping and modern devops appraoches to create a clear and
+usable separation-of-concern between Infrastructure, Platform (OS and configs) and Application layers
+in the build of the system, and to 
+
+![Architectural, data, and workflow mashup](master/docs/DevOps%20on%20EC2%20Arch.png "Architectural, data, and workflow mashup")
+
+	
 Assumptions
 -----------
 
