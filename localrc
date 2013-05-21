@@ -7,7 +7,9 @@
 DEBUG=y
 
 #
-# Setup some specific values for EC2 here.
+# INFRASTRUCTURE
+#
+# IaaS: Setup some specific values for EC2 here.
 #
 EC2_AMI=ami-05355a6c               # This is Amazon Linux 2013.03, x86_64 in US East
 EC2_INSTANCE_TYPE=t1.micro         # Size of the instance to launch
@@ -15,6 +17,24 @@ EC2_KEYNAME=parrott-ec2            # The key to use
 EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
 
 # 
+# PLATFORM
+#
 # Select the bootstrap script/data to use 
 #
-BOOTSTRAP=bootstrap/setup-drupal.sh
+BOOTSTRAP=bootstrap/drupal.sh
+
+EXTRA_PKGS="emacs-nox telnet"
+PUPPET_REPO_URL=https://github.com/robparrott/puppet-drupal.git
+PUPPET_REPO_BRANCH=master
+DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
+DRUPAL_REPO_BRANCH=7.x
+
+#
+# APPLICATION
+#
+APP_REPO_URL=
+APP_REPO_BRANCH=
+
+
+
+

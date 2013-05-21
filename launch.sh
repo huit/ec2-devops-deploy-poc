@@ -8,29 +8,8 @@
 # This script outputs the ID of the instance started.
 #
 
-source localrc
-
-#
-# For 
-#
-
-#DEFAULT_PUPPET_REPO=
-#DEFAULT_DRUPAL_REPO=
-#DEFAULT_APP_REPO=
-
-# Some defaults for pulling code during the boostrap
-#PUPPET_REPO=$(1:- 
-
-#
-# Create a user-data file to provide to the instance
-#  This file, in this case a shell script, will be
-#  handed off to the "cloud-init" bootstrap system
-#
-mkdir tmp 2>/dev/null 
-TMPFILE=$(mktemp user-data-script.sh.XXXXXX)
-cp ${BOOTSTRAP} ${TMPFILE}
-
-# Print out stuff
+# Convenience function to
+#  print out stuff
 function debug {
 	if [ $DEBUG = "y" ]; then
 		echo "$1:"
@@ -44,6 +23,20 @@ function debug {
 	fi
 }
 
+# The actual settings
+
+source localrc
+
+
+#
+# Create a user-data file to provide to the instance
+#  This file, in this case a shell script, will be
+#  handed off to the "cloud-init" bootstrap system
+#
+mkdir tmp 2>/dev/null 
+TMPFILE=$(mktemp user-data-script.sh.XXXXXX)
+echo "#!/bin/bash" >> ${TMPFILE}
+cat localrc ${BOOTSTRAP} >> ${TMPFILE}
 
 #
 # Now actually run the instance
