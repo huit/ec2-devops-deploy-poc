@@ -38,6 +38,8 @@ cd $PUPPET_DIR
 git submodule sync 
 git submodule update --init  
 
+# Let the system settle a bit ...
+sleep 10
 puppet apply ./manifests/site.pp --modulepath=./modules
 
 #--------------------------------------------
@@ -51,8 +53,10 @@ cd /var/www
 DRUPAL_REPO_BRANCH=${DRUPAL_REPO_BRANCH:-master}
 git clone --branch ${DRUPAL_REPO_BRANCH} ${DRUPAL_REPO_URL}
 DRUPAL_DIR=$( echo ${DRUPAL_REPO_URL} | awk -F/ '{print $NF}' | sed 's/\.git//' )
-ln -s $DRUPAL_DIR drupal
+ln -sf $DRUPAL_DIR drupal
 cd /var/www/drupal
+
+which drush
 
 drush si standard \
  --db-url=mysql://drupal:drupal@localhost/drupal \

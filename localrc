@@ -6,6 +6,7 @@
 # Debug?
 DEBUG=y
 
+
 #
 # INFRASTRUCTURE
 #
@@ -16,11 +17,13 @@ EC2_INSTANCE_TYPE=t1.micro         # Size of the instance to launch
 EC2_KEYNAME=parrott-ec2            # The key to use 
 EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
 
+
 # 
 # PLATFORM
 #
 # Select the bootstrap script/data to use 
 #
+
 BOOTSTRAP=bootstrap/drupal.sh
 
 EXTRA_PKGS="emacs-nox telnet"
