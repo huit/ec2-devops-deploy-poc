@@ -41,9 +41,7 @@ git submodule update --init
 puppet apply ./manifests/site.pp --modulepath=./modules
 
 #--------------------------------------------
-#
 #  Build and configure APPLICATION
-#
 #--------------------------------------------
 
 #
