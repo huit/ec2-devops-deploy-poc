@@ -25,7 +25,9 @@
 export PATH="${PATH}:/usr/local/bin"
 PKGS="puppet git curl ${EXTRA_PKGS}"
 yum -y install ${PKGS}
-cp -a /etc/system-release /etc/redhat-release # to convince puppet we're a RHEL derivative
+
+# to convince puppet we're a RHEL derivative
+[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
 
 #
 # pull, setup and run puppet manifests
