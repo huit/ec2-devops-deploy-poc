@@ -126,7 +126,13 @@ More Advanced Cases
 -------------------
 
 To do something more advanced, you need to add more data/configs to control how the system is imaged,
-and to install and configure the application. Here we'll examine a drupal installation.
+and to install and configure the application. The current options include:
+
+- Drupal
+- Wordpress
+- Jenkins CI Server
+
+Here we'll examine a drupal installation.
 
 To do this, we need to find or build a few set of data:
 
@@ -155,10 +161,7 @@ For drupal, the config file specified the following
 - The puppet repo to use to configure the system; and 
 - The application -- and optionally the framework -- to deploy, all from source.
 
-
-
-
-In our case
+In our case, we can follow
 
 
 
