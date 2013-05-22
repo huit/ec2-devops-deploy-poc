@@ -27,19 +27,15 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 # Select the bootstrap script/data to use 
 #
 
-BOOTSTRAP=bootstrap/wordpress.sh
+BOOTSTRAP=bootstrap/jenkins.sh
 
-EXTRA_PKGS="emacs-nox telnet httpd"
-PUPPET_REPO_URL=https://github.com/robparrott/puppet-wordpress.git
+EXTRA_PKGS="emacs-nox telnet"
+PUPPET_REPO_URL=https://github.com/jenkinsci/puppet-jenkins.git
 PUPPET_REPO_BRANCH=master
-WORDPRESS_REPO_URL=https://github.com/WordPress/WordPress.git
-WORDPRESS_REPO_BRANCH=master
+REPO_URL=https://github.com/jenkinsci/puppet-jenkins.git
+REPO_BRANCH=master
 
-#
-# APPLICATION
-#
-APP_REPO_URL=
-APP_REPO_BRANCH=
+
 
 
 
