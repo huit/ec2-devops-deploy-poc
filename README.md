@@ -151,6 +151,9 @@ For applications that use a runtime environment or framework such as Tomcat, Dru
 these environments can be part of the operating environment (3) or the platform (4), depending
 on how tightly coupled the framework is to the application.
 
+![Areas of concern/responsibility in the devops stack](../../raw/master/docs/Separation-of-concerns-devops-poc.png "Areas of concern/responsibility in the devops stack")
+
+
 As for the sets of data, the first two are simple scripts on the client. The rest are easily stored
 are git repos and cloned by the driver script at the appropriate time.
 
@@ -161,7 +164,7 @@ For drupal, the config file specified the following
 - The puppet repo to use to configure the system; and 
 - The application -- and optionally the framework -- to deploy, all from source.
 
-In our case, we can follow
+In our case, we can follow 
 
 
 
