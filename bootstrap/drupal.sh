@@ -19,29 +19,14 @@
 #  Build and configure PLATFORM
 #---------------------------------
 
-#
-# Install basics to bootstrap this process
-#
-export PATH="${PATH}:/usr/local/bin"
-PKGS="puppet git curl ${EXTRA_PKGS}"
-yum -y install ${PKGS}
+prepare_rhel6_for_puppet ${EXTRA_PKGS}
 
-# to convince puppet we're a RHEL derivative
-[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
 
 #
 # pull, setup and run puppet manifests
 #
 cd /tmp 
-PUPPET_REPO_BRANCH=${PUPPET_REPO_BRANCH:-master}
-git clone --branch ${PUPPET_REPO_BRANCH} ${PUPPET_REPO_URL}
-PUPPET_DIR=$( echo ${PUPPET_REPO_URL} | awk -F/ '{print $NF}' | sed 's/\.git//' )
-cd $PUPPET_DIR
-git submodule sync 
-git submodule update --init  
-
-# Let the system settle a bit ...
-sleep 10
+git_pull ${PUPPET_REPO_URL} ${PUPPET_REPO_BRANCH}
 puppet apply ./manifests/site.pp --modulepath=./modules
 
 #--------------------------------------------
@@ -52,11 +37,8 @@ puppet apply ./manifests/site.pp --modulepath=./modules
 # Drupal first
 #
 cd /var/www
-DRUPAL_REPO_BRANCH=${DRUPAL_REPO_BRANCH:-master}
-git clone --branch ${DRUPAL_REPO_BRANCH} ${DRUPAL_REPO_URL}
-DRUPAL_DIR=$( echo ${DRUPAL_REPO_URL} | awk -F/ '{print $NF}' | sed 's/\.git//' )
-ln -sf $DRUPAL_DIR drupal
-cd /var/www/drupal
+git_pull ${DRUPAL_REPO_URL} ${DRUPAL_REPO_BRANCH}
+ln -sf $(pwd) ../drupal
 
 which drush
 

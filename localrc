@@ -13,7 +13,9 @@ DEBUG=y
 # IaaS: Setup some specific values for EC2 here.
 #
 EC2_AMI=ami-05355a6c               # This is Amazon Linux 2013.03, x86_64 in US East
-EC2_INSTANCE_TYPE=t1.micro         # Size of the instance to launch
+EC2_AMI=ami-56009e3f               # CentoS 6.4 image from bashton.com
+
+EC2_INSTANCE_TYPE=m1.small         # Size of the instance to launch
 EC2_KEYNAME=parrott-ec2            # The key to use 
 EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
 
