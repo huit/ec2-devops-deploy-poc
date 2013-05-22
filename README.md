@@ -13,14 +13,19 @@ Links
 
 Use links related to this work:
 
-
-
 - [DevOps in the Cloud eBook/resources](http://www.devopscloud.com/)
 - [cloud-init docs](https://cloudinit.readthedocs.org)
 - [Amazon EC2 command line tools](http://aws.amazon.com/developertools/351)
 - [Amazon Linux](http://aws.amazon.com/amazon-linux-ami/)
 - [Automate EC2 Instance Setup with user-data Scripts](http://alestic.com/2009/06/ec2-user-data-scripts)
 - [Markdown Syntax (for this doc)](http://daringfireball.net/projects/markdown/syntax)
+
+Related GitHub repositories
+
+- https://github.com/robparrott/puppet-drupal
+- https://github.com/robparrott/drupal-puppet-modules
+- https://github.com/robparrott/drupal-poc
+- https://github.com/robparrott/puppet-wordpress
 
 Big Picture
 -----------
@@ -38,9 +43,12 @@ data in separate stores, the data is separated by these levels, and managed by d
 
 The mechanism that allows this is the use of the the user-data field and the "cloud-init" service that consumes 
 this data. The hook mechanism is to name a target repository and optionally a tag or branch in the 
-original deployment creation process; these values are passed doewn the line until it's time to modify the
+original deployment creation process; these values are passed down the line until it's time to modify the
 system to meet the state specified in these data sources.
 
+The implementation here is pretty ghetto, but aimed to be portable, since it's written copmletely in BASH. 
+It provides an basic framework for  deploying & building single system images. More advanced work should
+use CloudFormation and a more capable framework.
 	
 Assumptions
 -----------
@@ -92,6 +100,7 @@ variables to point to your own account resources, and feel free to turn off debu
 
     $ git clone [this repository]
     $ cd ec2-drupal-devops-deploy-poc
+    $ cp examples/localrc.simple-web localrc
     $ vi localrc
 
 Then from the root directory
@@ -112,4 +121,48 @@ tool
 
 Which will print out the various metadata about the system. Find the public URL (with the 
 "*compute-1.amazonaws.com domain name) and past it into a browser.
+
+More Advanced Cases
+-------------------
+
+To do something more advanced, you need to add more data/configs to control how the system is imaged,
+and to install and configure the application. Here we'll examine a drupal installation.
+
+To do this, we need to find or build a few set of data:
+
+(1) A config file (here a "localrc") file that specified attributes of the build desired, 
+including code repos and branches (this includes puppet code)
+
+(2) A basic driver script that performs the operations on the fresh instance
+
+(3) A set of puppet modules and site file that will setup the system
+
+(4) Any platform/framework code needed for the application
+
+(5) The application code itself.
+
+For applications that use a runtime environment or framework such as Tomcat, Drupal, or Ruby on Rails, 
+these environments can be part of the operating environment (3) or the platform (4), depending
+on how tightly coupled the framework is to the application.
+
+As for the sets of data, the first two are simple scripts on the client. The rest are easily stored
+are git repos and cloned by the driver script at the appropriate time.
+
+For drupal, the config file specified the following
+
+- Details  of the instance type and attributes to deploy;
+- The driver script to use, and any extra settings for that;
+- The puppet repo to use to configure the system; and 
+- The application -- and optionally the framework -- to deploy, all from source.
+
+
+
+
+In our case
+
+
+
+
+
+
 
