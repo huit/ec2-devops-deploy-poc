@@ -130,16 +130,16 @@ and to install and configure the application. Here we'll examine a drupal instal
 
 To do this, we need to find or build a few set of data:
 
-(1) A config file (here a "localrc") file that specified attributes of the build desired, 
+1. A config file (here a "localrc") file that specified attributes of the build desired, 
 including code repos and branches (this includes puppet code)
 
-(2) A basic driver script that performs the operations on the fresh instance
+2. A basic driver script that performs the operations on the fresh instance
 
-(3) A set of puppet modules and site file that will setup the system
+3. A set of puppet modules and site file that will setup the system
 
-(4) Any platform/framework code needed for the application
+4. Any platform/framework code needed for the application
 
-(5) The application code itself.
+5. The application code itself.
 
 For applications that use a runtime environment or framework such as Tomcat, Drupal, or Ruby on Rails, 
 these environments can be part of the operating environment (3) or the platform (4), depending
