@@ -58,7 +58,7 @@ puppet apply ./manifests/site.pp --modulepath=./modules
 sleep 10 
 JCLI="java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080"
 
-PLUGINS="github git subversion http_request jenkins-cloudformation-plugin ec2 s3 batch-task"
+PLUGINS="github git subversion http_request jenkins-cloudformation-plugin ec2 s3 batch-task chucknorris "
 for p in $PLUGINS; do
 	${JCLI} install-plugin $p
 done
