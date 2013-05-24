@@ -144,6 +144,7 @@ To do something more advanced, you need to add more data/configs to control how 
 and to install and configure the application. The current options include:
 
 - Drupal
+- OpenScholar
 - Wordpress
 - Jenkins CI Server
 

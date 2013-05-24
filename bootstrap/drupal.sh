@@ -49,7 +49,10 @@ drush si standard \
  --site-name="Drupal Dev Site" \
  -y
 
+# Add drupal modules
 drush dl blazemeter -y && drush en blazemeter -y
+
+
 chmod 777 /var/www/drupal/sites/default/files -R
 
 

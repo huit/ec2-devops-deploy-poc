@@ -27,13 +27,15 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 # Select the bootstrap script/data to use 
 #
 
-BOOTSTRAP=bootstrap/drupal.sh
+BOOTSTRAP=bootstrap/open-scholar.sh
 
 EXTRA_PKGS="emacs-nox telnet"
 PUPPET_REPO_URL=https://github.com/robparrott/puppet-drupal.git
 PUPPET_REPO_BRANCH=master
 DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
 DRUPAL_REPO_BRANCH=7.x
+OPENSCHOLAR_REPO_URL=https://github.com/openscholar/openscholar.git
+OPENSCHOLAR_REPO_BRANCH=SCHOLAR-3.x
 
 #
 # APPLICATION
