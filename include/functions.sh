@@ -5,16 +5,18 @@
 #
 # Convenience function to
 #  print out stuff
+
+function errecho { echo "$@" 1>&2; }
 function debug {
 	if [ $DEBUG = "y" ]; then
-		echo "$1:"
-		echo "----------------------------------------"
+		errecho "$1:"
+		errecho "----------------------------------------"
 		if [ -r "$2" ]; then 
-			cat $2
+			cat $2 1>&2
 		else
-			echo $2
+			errecho $2 >2 
 		fi
-		echo "----------------------------------------"
+		errecho "----------------------------------------" >2 
 	fi
 }
 
@@ -38,6 +40,13 @@ function get_instance_id {
 	echo $run_results | grep INSTANCE | sed 's/.*INSTANCE *//' | awk '{print $1}'
 }
 	
+function get_instance_hostname {
+	local inst_id=$1
+	hname=$( ec2-describe-instances ${inst_id} | grep INSTANCE | awk '{print $4}' )
+	echo $hname
+}
+	
+		
 #
 # Prepare a RHEL-ish v6 instance for puppetization
 #
@@ -51,9 +60,11 @@ function prepare_rhel6_for_puppet {
 	# to convince puppet we're a RHEL derivative, and then get EPEL installed
 	[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
 	
-	# to convince puppet we're a RHEL derivative, and then get EPEL installed
+	# Get EPEL installed
 	EPEL_RPM=http://mirror.utexas.edu/epel/6/i386/epel-release-6-8.noarch.rpm
-	rpm -ihv ${EPEL_RPM} || /bin/true		
+	if ! [ -f /etc/yum.repos.d/epel.repo ]; then
+		rpm -ihv ${EPEL_RPM} || /bin/true		
+	fi
 	
 	export PATH="${PATH}:/usr/local/bin"
 	PKGS="puppet git curl ${extra_pkgs}"

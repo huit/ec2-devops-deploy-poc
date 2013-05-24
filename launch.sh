@@ -35,7 +35,6 @@ debug Command "${CMD}"
 # Run the command, parsing the output (stupid Amazon command line!)
 #
 run_results=$( $CMD )
-get_instance_id
 inst_id=$( get_instance_id $run_results )
 
 debug "Command Output" "${run_results}"

@@ -117,10 +117,25 @@ The resulting instance will boot up and then create a very simple static root we
 To see it, use the instance id values output bu the launch.sh script, and use the command line 
 tool
 
-    $ ec2-describe-instances [instance id]
+    $ ec2-describe-instances [instance id]    
 
 Which will print out the various metadata about the system. Find the public URL (with the 
 "*compute-1.amazonaws.com domain name) and past it into a browser.
+
+To login to the instance, you can use the helper script:
+
+    $ ./login.sh [instance id]
+
+For debugging/devel purposes, it's convenient to capture the instance id output from the launch.sh script
+on the command line, as such:
+
+    $ INSTANCE_ID=$( ./launch.sh )
+    ... wait ...
+    $ ./login.sh ${INSTANCE_ID}
+    ... do some stuff ...
+    $ ec2-terminate_instance ${INSTANCE_ID}
+
+
 
 More Advanced Cases
 -------------------
