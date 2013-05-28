@@ -57,9 +57,6 @@ function prepare_rhel6_for_puppet {
 	
 	local extra_pkgs=$1
 	
-	# to convince puppet we're a RHEL derivative, and then get EPEL installed
-	[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
-	
 	# Get EPEL installed
 	EPEL_RPM=http://mirror.utexas.edu/epel/6/i386/epel-release-6-8.noarch.rpm
 	if ! [ -f /etc/yum.repos.d/epel.repo ]; then
@@ -69,6 +66,11 @@ function prepare_rhel6_for_puppet {
 	export PATH="${PATH}:/usr/local/bin"
 	PKGS="puppet git curl ${extra_pkgs}"
 	yum -y install ${PKGS}
+	
+	echo $( facter operatingsystem )
+	# to convince puppet we're a RHEL derivative, and then get EPEL installed
+	[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
+		
 }
 
 #

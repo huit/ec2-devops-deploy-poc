@@ -32,14 +32,33 @@ BOOTSTRAP=bootstrap/drupal.sh
 EXTRA_PKGS="emacs-nox telnet"
 PUPPET_REPO_URL=https://github.com/robparrott/puppet-drupal.git
 PUPPET_REPO_BRANCH=master
+
 DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
 DRUPAL_REPO_BRANCH=7.x
+
+# list of additional drupal modules to install
+DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  shield  site_map  views_bulk_operations views_extra_handlers  views_field_view  views_rss  views_xml_backend"
+
 
 #
 # APPLICATION
 #
+
+CUSTOM_DRUPAL_MODULES="huit_search huit_voice_mail"
+
 APP_REPO_URL=
 APP_REPO_BRANCH=
+
+#
+# APPLICATION DATA
+# 
+
+# Must be gzipped ... *.gz
+SITE_DATABASE_FILE=
+
+# Must be tar-gzipped, *.tgz
+SITE_DATA=
+
 
 
 
