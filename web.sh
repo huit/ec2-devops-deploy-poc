@@ -2,7 +2,7 @@
 #
 # This script ssh's to the specified instance
 
-source include/functions.sh
+source include/functions-local.sh
 
 if [ -z $1 ]; then
 	echo $( basename $0 ): Must specify instance ID.

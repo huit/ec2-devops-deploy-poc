@@ -2,7 +2,7 @@
 #
 # This script ssh's to the specified instance
 
-source include/functions.sh
+source include/functions-local.sh
 REMOTE_USER=ec2-user
 
 if [ -z $1 ]; then

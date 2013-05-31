@@ -8,10 +8,28 @@
 # This script outputs the ID of the instance started.
 #
 
-source include/functions.sh
+source include/functions-local.sh
 LOCALRC=${1:-localrc}
 source ${LOCALRC}
 
+#
+# Create a role and policy so that instances
+#   can access data on a given S3 bucket
+#
+# NOT ENABLED FOR NOW
+#
+#ROLE=dev-access
+#BUCKET=${DATA_S3_BUCKET} # Needs to be set in localrc
+#
+#profile_name=$( create_s3_access_role ${ROLE} ${BUCKET} )
+#
+
+
+#
+# Provision private data files
+#
+DATA_URLS=$( provision_private_data "${PRIVATE_DATA_URLS}" )
+debug "S3 new URLS" ${DATA_URLS}
 
 #
 # Create a user-data file to provide to the instance
@@ -29,23 +47,19 @@ CMD="ec2-run-instances ${EC2_AMI} \
  --instance-type ${EC2_INSTANCE_TYPE} \
  --user-data-file ${USER_DATA_FILE} "
 
+#[ -n ${profile_name} ] && CMD="${CMD} --iam-profile ${profile_name}"
+
 debug Command "${CMD}"
 
 #
-# Run the command, parsing the output (stupid Amazon command line!)
+# Run the command, parsing the output,
+#  and report the instance ID
 #
 run_results=$( $CMD )
 inst_id=$( get_instance_id $run_results )
-
-debug "Command Output" "${run_results}"
-debug "User Data File" "${USER_DATA_FILE}"
-
-rm -f ${USER_DATA_FILE}
-
-#
-# Report the instance ID
-#
 echo $inst_id
 
- 
+debug "Command Output" "${run_results}"
+#debug "User Data File" "${USER_DATA_FILE}"
 
+rm -f ${USER_DATA_FILE}
