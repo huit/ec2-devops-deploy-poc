@@ -25,6 +25,9 @@
 
 prepare_rhel6_for_puppet ${EXTRA_PKGS}
 
+# Drush needs php 5.3.5 or later ... CentOS 6.4 only provides 5.3.3
+OPERATING_SYSTEM=$(facter operatingsystem)
+
 
 #
 # pull, setup and run puppet manifests
@@ -33,31 +36,14 @@ cd /tmp
 git_pull ${PUPPET_REPO_URL} ${PUPPET_REPO_BRANCH}
 puppet apply ./manifests/site.pp --modulepath=./modules
 
+# FIXME: Add in DRUSH using "pear" until puppet modules are better
+
+pear channel-discover pear.drush.org
+pear install drush/drush
+
 #--------------------------------------------
 #  Build and configure APPLICATION
 #--------------------------------------------
-
-#
-# Drupal framework first
-#
-# NOTE: let's for now just use the mechanism in OPenScholar to
-#  setup Drupal, and comment this out.
-
-#cd /var/www
-#git_pull ${DRUPAL_REPO_URL} ${DRUPAL_REPO_BRANCH}
-#ln -sf $(pwd) ../drupal
-
-# Vanilla install
-#drush si standard \
-# --db-url=mysql://drupal:drupal@localhost/drupal \
-# --db-su=root \
-# --db-su-pw=password \
-# --site-name="Drupal Dev Site" \
-# -y
-
-# Add any Drupal modules desired ...
-#drush dl blazemeter -y && drush en blazemeter -y
-#chmod 777 /var/www/drupal/sites/default/files -R
 
 #
 # App next: pull openscholar
