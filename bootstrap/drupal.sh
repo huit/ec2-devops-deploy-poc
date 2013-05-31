@@ -21,12 +21,8 @@
 
 prepare_rhel6_for_puppet ${EXTRA_PKGS}
 
-# Drush needs php 5.3.5 or later ... CentOS 6.4 only provides 5.3.3
-#(
-# cd /tmp 
-# wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-# rpm -Uvh remi-release-6*.rpm
-#)
+# Allow the instance to access S3 bucket with appropriate data
+setup_aws_creds
 
 #
 # pull, setup and run puppet manifests
@@ -42,7 +38,7 @@ puppet apply ./manifests/site.pp --modulepath=./modules
 #--------------------------------------------
 
 #
-# Drupal first
+# Pull and install Drupal first
 #
 cd /var/www
 git_pull ${DRUPAL_REPO_URL} ${DRUPAL_REPO_BRANCH}
@@ -65,7 +61,7 @@ done
 # Setup the files directory
 chmod 777 /var/www/drupal/sites/default/files -R
 
-# Do the installation (default & standard )
+# Do a default, standard installation 
 
 drush si standard \
  --db-url=mysql://drupal:drupal@localhost/drupal \
@@ -75,18 +71,77 @@ drush si standard \
  -y
 
 #
-# App next
+# Application customizations next
+#
+# Assume everything is in S3 or Git
 #
 
+# Setup the AWS credentials again, since they are 
+#  temporary
+setup_aws_creds
+
+tmpd=$( mktemp -d )
+cd ${tmpd}
+
+#
+# Pull from provided URLs any private data 
+#  for the application
+#
+pull_private_data $DATA_URLS
+
 # replace the database with current version
-if ! [ -z "${SITE_DATABASE_FILE}" ]; then 
-	cd /tmp
-	wget ${SITE_DATABASE_FILE} | gzip - | mysql -u root -p password drupal
+if ! [ -z "${APP_REPO_URL}" ]; then 
+	git_pull ${APP_REPO_URL} ${APP_REPO_BRANCH}
+	cp -rf sites profiles /var/www/drupal/
 fi
 
-# include user data
+# unpack an archive of the application code that was already downloaded
+if ! [ -z "${APP_ARCHIVE_FILE}" ]; then 
+	
+	cd /var/www/drupal
+	tar xzvf ${tmpd}/${APP_ARCHIVE_FILE}
+	cd ${tmpd}	
+
+fi
+
+# Fix up modules ...
+
+cd /var/www/drupal/sites/all/modules
+ln -s ../custom/* .
+cd ${tmpd}
+
+#
+# Install the profile if provided
+#
+if ! [ -z "${DRUPAL_PROFILE_NAME}" ]; then
+
+	cd /var/www/drupal
+	drush si ${DRUPAL_PROFILE_NAME} \
+	 --db-url=mysql://drupal:drupal@localhost/drupal \
+	 --db-su=root \
+	 --db-su-pw=password \
+	 --site-name="${DRUPAL_PROFILE_NAME}" \
+	 -y
+	cd ${tmpd}		
+fi
+
+#
+# replace the database with current version
+#
 if ! [ -z "${SITE_DATABASE_FILE}" ]; then 
-	wget ${SITE_DATA}
+	
+	cat "${SITE_DATABASE_FILE}" | gunzip - | mysql -u root -ppassword drupal 
+
+fi
+
+
+# include user data (assume top level dir is "files/"
+if ! [ -z "${SITE_DATA}" ]; then 
+
+	cd /var/www/drupal/sites/default
+	tar xzvf ${tmpd}/files.tgz
+	cd ${tmpd}
+
 fi
 
 #--------------------------------------------

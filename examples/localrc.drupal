@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This script contains specific config variables for use with
-#  the launch.sh script.
+#  the launch.sh and any bootstrap scripts.
 
 # Debug?
 DEBUG=y
@@ -13,13 +13,12 @@ DEBUG=y
 # IaaS: Setup some specific values for EC2 here.
 #
 EC2_AMI=ami-05355a6c               # This is Amazon Linux 2013.03, x86_64 in US East
-#EC2_AMI=ami-56009e3f               # CentoS 6.4 image from bashton.com
+EC2_AMI=ami-56009e3f               # CentoS 6.4 image from bashton.com
 #EC2_AMI=ami-d13758b8               # Fedora 18 image
 
 EC2_INSTANCE_TYPE=m1.small         # Size of the instance to launch
 EC2_KEYNAME=parrott-ec2            # The key to use 
 EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
-
 
 # 
 # PLATFORM
@@ -37,27 +36,18 @@ DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
 DRUPAL_REPO_BRANCH=7.x
 
 # list of additional drupal modules to install
-DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  shield  site_map  views_bulk_operations views_extra_handlers  views_field_view  views_rss  views_xml_backend"
+DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  shield  site_map \
+                views_bulk_operations views_extra_handlers  views_field_view  \
+                views_rss  views_xml_backend"
 
 
 #
 # APPLICATION
 #
 
-CUSTOM_DRUPAL_MODULES="huit_search huit_voice_mail"
-
-APP_REPO_URL=
-APP_REPO_BRANCH=
-
-#
-# APPLICATION DATA
-# 
-
-# Must be gzipped ... *.gz
-SITE_DATABASE_FILE=
-
-# Must be tar-gzipped, *.tgz
-SITE_DATA=
+DATA_FILE_URLS="s3://huit.harvard.edu/data/files.tar.gz \
+                s3://huit.harvard.edu/data/custom-drupal-code.tgz \
+                s3://huit.harvard.edu/data/website.sql.gz"
 
 
 
