@@ -2,8 +2,19 @@
 
 #
 # Simple demo boostrap script to be run by cloud-init, that
-#  shows that the script executued by writing a root web page.
+#  shows that the script executed by writing a root web page.
 #
+
+#
+# Normally this would use a boilerplate setup to enable puppet, etc.
+#  such as:
+# """
+# prepare_rhel6_for_puppet ${EXTRA_PKGS}
+# setup_aws_creds
+# """
+#
+# but here we'll just do it directly ...
+
 
 # install & start apache and setup a target web root dir for apache
 yum -y install httpd emacs-nox
