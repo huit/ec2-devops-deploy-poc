@@ -81,9 +81,15 @@ Given these assumptions, more concretely let's do this:
 Requirements
 ------------
 
-Install the EC2 command line utlities, which require a valid Java installation. Also a basic Linux/UNIX 
-command environment, including BASH, awk, grep, etc. Lastly, you'll need Git in order to 
-clone this repository.
+The basic requirement is a UNIX/Linux command line and various client tools. IN particular:
+
+- A basic Linux/UNIX command environment, including BASH, awk, grep, etc.
+- Install the EC2 command line utilities 
+- Java installation (for above)
+- Install the [s3cmd client tools](http://s3tools.org/s3cmd).
+- uuidgen command line tool to create uuids
+- Git command line
+
 
 QuickStart
 ----------
