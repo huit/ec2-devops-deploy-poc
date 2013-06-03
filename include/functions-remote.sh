@@ -49,7 +49,7 @@ function do_puppet {
 	
 	#r10k deploy environment --puppetfile Puppetfile
 	if [ -r Puppetfile ]; then
-			r10k puppetfile install
+			HOME=/root r10k puppetfile install
 	fi
 	puppet apply ${site_file}  --modulepath=./modules
 	
