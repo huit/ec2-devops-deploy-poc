@@ -50,14 +50,6 @@ pear install drush/drush
 
 echo Using drush version from: $( which drush )
 
-#
-# Add requested drupal modules
-# 
-MODS="${DRUPAL_MODULES}"
-for mod in ${MODS}; do
-	drush dl ${mod} -y && drush en ${mod} -y	
-done
-
 # Setup the files directory
 chmod 777 /var/www/drupal/sites/default/files -R
 
@@ -71,10 +63,19 @@ drush si standard \
  -y
 
 #
+# Add requested drupal modules
+# 
+MODS="${DRUPAL_MODULES}"
+for mod in ${MODS}; do
+	drush dl ${mod} -y && drush en ${mod} -y	
+done
+
+#-------------------------------------
 # Application customizations next
 #
 # Assume everything is in S3 or Git
-#
+#--------------------------------------
+
 
 # Setup the AWS credentials again, since they are 
 #  temporary
@@ -104,11 +105,23 @@ if ! [ -z "${APP_ARCHIVE_FILE}" ]; then
 
 fi
 
-# Fix up modules ...
+# Fix up modules ... seems that custom modules aren't picked up
+#  by an install?
 
-cd /var/www/drupal/sites/all/modules
-ln -s ../custom/* .
-cd ${tmpd}
+if [ -d /var/www/drupal/sites/all/custom ]; then
+	
+	cd /var/www/drupal/sites/all/modules
+	mods=$( ls ../custom )
+	for mod in $mods; do 
+		ln -s ../custom/${mod} .
+	done
+	cd /var/www/drupal
+	for mod in $mods; do 
+		drush en ${mod} -y
+	done				
+	cd ${tmpd}
+	
+fi
 
 #
 # Install the profile if provided
