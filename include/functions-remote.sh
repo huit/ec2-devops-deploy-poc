@@ -42,6 +42,18 @@ function prepare_rhel6_for_puppet {
 		
 }
 
+# Run puppet on a suitable repo
+function do_puppet {
+	
+	local site_file=${1:-manifests/site.pp}
+	
+	#r10k deploy environment --puppetfile Puppetfile
+	if [ -r Puppetfile ]; then
+			r10k puppetfile install
+	fi
+	puppet apply ${site_file}  --modulepath=./modules
+	
+}
 #
 # On the server side, pull down any credentials
 #   setup for this instance, and build appropriate
