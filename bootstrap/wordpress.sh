@@ -22,28 +22,12 @@
 
 prepare_rhel6_for_puppet ${EXTRA_PKGS}
 
-
 #
-# Pull Wordpress
-#
-cd /tmp
-git_pull ${WORDPRESS_REPO_URL} ${WORDPRESS_REPO_BRANCH}
-ln -sf $(pwd) ../wordpress
-
-#
-# pull & setup puppet modules and manifest
+# pull & setup puppet modules and run manifest
+#  to setup wordpress defaults
 #
 cd /tmp 
 git_pull ${PUPPET_REPO_URL} ${PUPPET_REPO_BRANCH}
-mkdir modules && ln -s $(pwd) modules/wordpress 
-
-#
-# Run puppet to install Wordpress
-#
-puppet apply ./manifests/site.pp --modulepath=./modules
-
-#
-# Setup wordpress
-#
+do_puppet ./manifests/site.pp
 
 

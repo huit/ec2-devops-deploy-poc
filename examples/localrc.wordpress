@@ -20,7 +20,6 @@ EC2_INSTANCE_TYPE=t1.micro
 EC2_KEYNAME=parrott-ec2            # The key to use 
 EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
 
-
 # 
 # PLATFORM
 #
@@ -30,16 +29,8 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 BOOTSTRAP=bootstrap/wordpress.sh
 
 EXTRA_PKGS="emacs-nox telnet httpd"
-PUPPET_REPO_URL=https://github.com/robparrott/puppet-wordpress.git
+PUPPET_REPO_URL=https://github.com/robparrott/wordpress-puppet-build.git
 PUPPET_REPO_BRANCH=master
-WORDPRESS_REPO_URL=https://github.com/WordPress/WordPress.git
-WORDPRESS_REPO_BRANCH=master
-
-#
-# APPLICATION
-#
-APP_REPO_URL=
-APP_REPO_BRANCH=
 
 
 
