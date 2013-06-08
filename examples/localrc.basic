@@ -33,9 +33,7 @@ EXTRA_PKGS="emacs-nox telnet"
 #  Should be on S3
 #
 
-PRIVATE_DATA_URLS="s3://huit.harvard.edu/data/files.tar.gz \
-                s3://huit.harvard.edu/data/custom-drupal-code.tgz \
-                s3://huit.harvard.edu/data/website.sql.gz"
+#PRIVATE_DATA_URLS="s3://bucket/files.tar.gz"
 
 
 
