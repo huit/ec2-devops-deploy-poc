@@ -30,7 +30,7 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 BOOTSTRAP=bootstrap/jenkins.sh
 
 EXTRA_PKGS="emacs-nox telnet"
-PUPPET_REPO_URL=https://github.com/robparrott/jenkins-puppet-build.git
+PUPPET_REPO_URL=https://github.com/huit/jenkins-puppet-build.git
 PUPPET_REPO_BRANCH=master
 
 

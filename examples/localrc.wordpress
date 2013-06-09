@@ -29,7 +29,7 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 BOOTSTRAP=bootstrap/wordpress.sh
 
 EXTRA_PKGS="emacs-nox telnet httpd"
-PUPPET_REPO_URL=https://github.com/robparrott/wordpress-puppet-build.git
+PUPPET_REPO_URL=https://github.com/huit/wordpress-puppet-build.git
 PUPPET_REPO_BRANCH=master
 
 
