@@ -38,7 +38,8 @@ function prepare_rhel6_for_puppet {
 	
 	echo $( facter operatingsystem )
 	# to convince puppet we're a RHEL derivative, and then get EPEL installed
-	[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
+	[ -r /etc/redhat-release ] || echo "CentOS release 6.4 (Final)" > /etc/redhat-release
+	#	[ -f /etc/system-release ] && cp -af /etc/system-release /etc/redhat-release 
 		
 }
 
