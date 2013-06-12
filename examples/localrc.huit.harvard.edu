@@ -65,7 +65,7 @@ PRIVATE_DATA_URLS="s3://huit.harvard.edu/data/files.tar.gz \
 APP_REPO_URL=
 APP_REPO_BRANCH=
 
-APP_ARCHIVE=huit-drupal-code.tgz
+APP_ARCHIVE_FILE=custom-drupal-code.tgz
 
 #
 # APPLICATION DATA
@@ -74,7 +74,7 @@ APP_ARCHIVE=huit-drupal-code.tgz
 # 
 
 # Must be gzipped ... *.gz
-SITE_DATABASE_FILE=huit_website.sql.gz
+SITE_DATABASE_FILE=website.sql.gz
 
 # Must be tar-gzipped, *.tgz
 SITE_DATA=files.tar.gz

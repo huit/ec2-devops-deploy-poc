@@ -29,11 +29,13 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 BOOTSTRAP=bootstrap/drupal.sh
 
 EXTRA_PKGS="emacs-nox telnet"
-PUPPET_REPO_URL=https://github.com/robparrott/puppet-drupal.git
+PUPPET_REPO_URL=https://github.com/robparrott/drupal-puppet-build.git
 PUPPET_REPO_BRANCH=master
 
-DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
-DRUPAL_REPO_BRANCH=7.x
+
+
+#DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
+#DRUPAL_REPO_BRANCH=7.x
 
 # list of additional drupal modules to install
 DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  shield  site_map \
@@ -45,9 +47,9 @@ DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  shield  site_map \
 # APPLICATION
 #
 
-DATA_FILE_URLS="s3://huit.harvard.edu/data/files.tar.gz \
-                s3://huit.harvard.edu/data/custom-drupal-code.tgz \
-                s3://huit.harvard.edu/data/website.sql.gz"
+#DATA_FILE_URLS="s3://huit.harvard.edu/data/files.tar.gz \
+#                s3://huit.harvard.edu/data/custom-drupal-code.tgz \
+#                s3://huit.harvard.edu/data/website.sql.gz"
 
 
 
