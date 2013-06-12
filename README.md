@@ -105,7 +105,7 @@ to cloud-init on the newly launched instance. In particular, change all the "EC2
 variables to point to your own account resources, and feel free to turn off debugging (set to "n").
 
     $ git clone [this repository]
-    $ cd ec2-drupal-devops-deploy-poc
+    $ cd ec2-devops-deploy-poc
     $ cp examples/localrc.simple-web localrc
     $ vi localrc
 
@@ -151,21 +151,23 @@ More Advanced Cases
 To do something more advanced, you need to add more data/configs to control how the system is imaged,
 and to install and configure the application. The current options include:
 
-- Drupal
-- OpenScholar
-- Wordpress
-- Jenkins CI Server
+- [Drupal](http://drupal.org)
+- [OpenScholar](http://openscholar.harvard.edu/)
+- [Wordpress](http://wordpress.org/)
+- [Jenkins CI Server](http://jenkins-ci.org/)
 
-Here we'll examine a drupal installation.
+In addition, some play cases for OpenShift and OpenStack.
+
+Here we'll examine a Drupal installation.
 
 To do this, we need to find or build a few set of data:
 
-1. A config file (here a "localrc") file that specified attributes of the build desired, 
+1. A config file (here a `localrc`) file that specified attributes of the build desired, 
 including code repos and branches (this includes puppet code)
 
-2. A basic driver script that performs the operations on the fresh instance
+2. A basic driver script that performs the operations on the fresh instance (in our case, likely `bootstrap/drupal.sh`)
 
-3. A set of puppet modules and site file that will setup the system
+3. A set of puppet modules and site file that will setup the system, specified as a puppet repo and associated modules.
 
 4. Any platform/framework code needed for the application
 
