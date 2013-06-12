@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# This script contains specific config variables for use with
+#  the launch.sh script.
+
+# Debug?
+DEBUG=y
+
+
+#
+# INFRASTRUCTURE
+#
+# IaaS: Setup some specific values for EC2 here.
+#
+EC2_AMI=ami-05355a6c               # This is Amazon Linux 2013.03, x86_64 in US East
+#EC2_AMI=ami-56009e3f               # CentoS 6.4 image from bashton.com
+
+#EC2_INSTANCE_TYPE=m1.small         # Size of the instance to launch
+EC2_INSTANCE_TYPE=t1.micro
+EC2_KEYNAME=parrott-ec2            # The key to use 
+EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH access
+
+# 
+# PLATFORM
+#
+# Select the bootstrap script/data to use 
+#
+
+BOOTSTRAP=bootstrap/mediawiki.sh
+
+EXTRA_PKGS="emacs-nox telnet httpd"
+PUPPET_REPO_URL=https://github.com/huit/mediawiki-puppet-build.git
+
+PUPPET_REPO_BRANCH=master
+
+
+
+
