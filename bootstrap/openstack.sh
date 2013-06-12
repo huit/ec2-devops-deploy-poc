@@ -63,16 +63,16 @@ if ! [ -z $EC2_PUBLIC_IP ]; then
 
 	# edit to use public IPs for endpoints for services that need to be accessed from outside.
 	KEYS=" CONFIG_KEYSTONE_HOST \
-       CONFIG_GLANCE_HOST \
-       CONFIG_NOVA_API_HOST \
-       CONFIG_NOVA_CERT_HOST \
-       CONFIG_NOVA_VNCPROXY_HOST \
-       CONFIG_SWIFT_PROXY_HOSTS \
-       CONFIG_CINDER_HOST \
-       CONFIG_HORIZON_HOST"
-
-	# edit to use public IPs for endpoints for services that need to be accessed from outside.
-	KEYS=" CONFIG_NOVA_VNCPROXY_HOST CONFIG_KEYSTONE_HOST"
+           CONFIG_GLANCE_HOST \
+           CONFIG_CINDER_HOST \
+           CONFIG_HORIZON_HOST \
+           CONFIG_QUANTUM_SERVER_HOST \
+           CONFIG_NOVA_VNCPROXY_HOST \
+           CONFIG_NOVA_API_HOST \
+           CONFIG_NOVA_COMPUTE_HOSTS \
+           CONFIG_NOVA_CERT_HOST \
+           CONFIG_NOVA_SCHED_HOST \
+           CONFIG_SWIFT_PROXY_HOSTS"
     
 	for KEY in $KEYS; do 
 		${CONFIG} general ${KEY} ${EC2_PUBLIC_IP}
