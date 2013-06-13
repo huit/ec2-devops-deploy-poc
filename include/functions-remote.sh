@@ -18,7 +18,7 @@ REQUIRED_PKGS="puppet git curl wget s3cmd aws-cli ruby-devel rubygems gcc"
 # 
 function prepare_rhel6_for_puppet {
 	
-	local extra_pkgs=$1
+	local extra_pkgs=$*
 	
 	# Get the puppet labs repo installed
 	rpm -ivh http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
