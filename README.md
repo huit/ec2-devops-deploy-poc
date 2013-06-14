@@ -81,7 +81,7 @@ Given these assumptions, more concretely let's do this:
 Requirements
 ------------
 
-The basic requirement is a UNIX/Linux command line and various client tools. IN particular:
+The basic requirement is a UNIX/Linux (Mac OS X is UNIX underneath) command line and various client tools. In particular:
 
 - A basic Linux/UNIX command environment, including BASH, awk, grep, etc.
 - Install the EC2 command line utilities 
@@ -90,6 +90,7 @@ The basic requirement is a UNIX/Linux command line and various client tools. IN 
 - uuidgen command line tool to create uuids
 - Git command line
 
+On the Mac, most of this can be installed using [HomeBrew](http://mxcl.github.io/homebrew/).
 
 QuickStart
 ----------
