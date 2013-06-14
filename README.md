@@ -155,6 +155,7 @@ and to install and configure the application. The current options include:
 - [Drupal](http://drupal.org)
 - [OpenScholar](http://openscholar.harvard.edu/)
 - [Wordpress](http://wordpress.org/)
+- [MediaWiki](http://mediawiki.org)
 - [Jenkins CI Server](http://jenkins-ci.org/)
 
 In addition, some play cases for OpenShift and OpenStack.
