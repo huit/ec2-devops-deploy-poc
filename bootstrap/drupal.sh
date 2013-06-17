@@ -79,7 +79,7 @@ done
 
 # Setup the AWS credentials again, since they are 
 #  temporary
-setup_aws_creds
+#setup_aws_creds
 
 tmpd=$( mktemp -d )
 cd ${tmpd}
@@ -89,6 +89,8 @@ cd ${tmpd}
 #  for the application
 #
 pull_private_data $DATA_URLS
+
+exit 0;
 
 # replace the database with current version
 if ! [ -z "${APP_REPO_URL}" ]; then 
@@ -130,7 +132,7 @@ if ! [ -z "${DRUPAL_PROFILE_NAME}" ]; then
 
 	cd /var/www/drupal
 	drush si ${DRUPAL_PROFILE_NAME} \
-	 --db-url=mysql://drupal:drupal@localhost/drupal \
+	--db-url=mysql://drupal:drupal@localhost/drupal \
 	 --db-su=root \
 	 --db-su-pw=password \
 	 --site-name="${DRUPAL_PROFILE_NAME}" \
