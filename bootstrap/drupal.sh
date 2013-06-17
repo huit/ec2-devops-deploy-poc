@@ -170,8 +170,6 @@ install_drupal() {
 
 install_drupal_modules() {
 	
-	echo "Installing requested Drupal modules ..."
-	
 	#
 	# Add requested drupal modules
 	# 
@@ -186,10 +184,8 @@ install_drupal_modules() {
 }
 
 install_standard_drupal_site() {
+	
 	# Do a default, standard installation 
-
-	echo "Doing a site install of the standard Drupal site ..."
-
 	local orig_dir=$( pwd )
 	cd ${DRUPAL_ROOT}
 	drush si standard \

@@ -39,10 +39,10 @@ DRUPAL_REPO_URL=http://git.drupal.org/project/drupal.git
 DRUPAL_REPO_BRANCH=7.x
 
 # list of additional drupal modules to install
-DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  \
-                shield  site_map views_bulk_operations \
-                views_extra_handlers views_field_view  \
-                views_rss  views_xml_backend"
+#DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  \
+#                shield  site_map views_bulk_operations \
+#                views_extra_handlers views_field_view  \
+#                views_rss  views_xml_backend"
 
 #
 # APPLICATION
