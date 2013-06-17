@@ -43,6 +43,8 @@ DRUPAL_REPO_BRANCH=7.x
 #                shield  site_map views_bulk_operations \
 #                views_extra_handlers views_field_view  \
 #                views_rss  views_xml_backend"
+DRUPAL_MODULES="google_cse"
+
 
 #
 # APPLICATION

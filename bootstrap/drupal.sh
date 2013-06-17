@@ -102,7 +102,7 @@ install_drupal_modules() {
 	# 
 	local orig_dir=$( pwd )
 	cd ${DRUPAL_ROOT}
-	MODS="${DRUPAL_MODULES}"
+	MODS="${1}"
 	for mod in ${MODS}; do
 		drush dl ${mod} -y 
 		#drush en ${mod} -y	
@@ -150,22 +150,13 @@ install_custom_drupal_code() {
 	# move any old settings.php files out of the way
 	mv -f ${DRUPAL_ROOT}/sites/default/settings.php ${DRUPAL_ROOT}/sites/default/settings.php.old
 	
-	# Fix up modules ... seems that custom modules aren't picked up
-	#  by an install?
-
-	#	if [ -d ${DRUPAL_ROOT}/sites/all/custom ]; then
-	#	
-	#		cd ${DRUPAL_ROOT}/sites/all/modules
-	#		mods=$( ls ../custom )
-	#		for mod in $mods; do 
-	#			ln -s ../custom/${mod} .
-	#		done
-	#		cd /var/www/drupal
-	#		for mod in $mods; do 
-	#			drush en ${mod} -y
-	#		done				
-	#		cd -
-	#	fi
+	# Fix up modules ... seems that custom modules are in
+	#   the wrong place?
+	if [ -d ${DRUPAL_ROOT}/sites/all/custom ]; then
+		
+		cp -av ${DRUPAL_ROOT}/sites/all/custom/* \
+			${DRUPAL_ROOT}/profiles/${DRUPAL_PROFILE_NAME}/modules/custom/
+	fi
 	
 	chown -R root:root ${DRUPAL_ROOT}
 	
@@ -198,11 +189,12 @@ setup_site_database() {
 		mysql -u ${DB_ROOT_USERNAME} -p${DB_ROOT_PWD} ${DB_NAME} 
 	
 		# clear out any cache tables
-		#drush cache clear --db-url={DB_URL}
-		CACHES=$( echo "show tables;" | mysql drupal -ppassword | grep cache )
-		for CACHE in $CACHES; do
-			echo "delete from ${CACHE};" | mysql -u ${DB_ROOT_USERNAME} -p${DB_ROOT_PWD} ${DB_NAME} 
-		done
+		drush cache-clear 1 --db-url={DB_URL}
+		
+		#CACHES=$( echo "show tables;" | mysql drupal -ppassword | grep cache )
+		#for CACHE in $CACHES; do
+			#	echo "delete from ${CACHE};" | mysql -u ${DB_ROOT_USERNAME} -p${DB_ROOT_PWD} ${DB_NAME} 
+		#done
 	fi
 	cd ${orig_dir}	
 }
@@ -228,10 +220,17 @@ configure_settings_php() {
 }
 
 configure_varnish_caching() {
-	cat >> ${DRUPAL_ROOT}/sites/default/settings.php <<"EOF"                                                                                                                   
+
+	drush vset cache 1 
+	
+	cat >> ${DRUPAL_ROOT}/sites/default/settings.php <<"EOF"
+
+# Enable caching and use varnish
 $conf['reverse_proxy'] = TRUE;
 $conf['reverse_proxy_addresses'] = array('127.0.0.1');
+$conf['caching'] = '1';
 EOF
+
 }
 
 #
@@ -259,7 +258,7 @@ echo "Creating a vanilla Drupal site ..."
 install_standard_drupal_site
 
 echo "Installing desired extra modules ... "
-install_drupal_modules
+install_drupal_modules "${DRUPAL_MODULES}"
 
 # Check for customizations ...
 if ! [ -z ${APP_REPO_URL} -a -z ${APP_ARCHIVE_FILE} ]; then
@@ -279,6 +278,12 @@ fi
 
 # setting up varnish caching ...
 configure_varnish_caching
+
+# install varnish drush module, so that we can purge the cache, etc.
+install_drupal_modules "varnish"
+
+# Fix up the database as needed
+cd /var/www/drupal && drush updatedb -y
 
 service httpd restart 
 service varnish restart 
