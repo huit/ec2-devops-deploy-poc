@@ -92,6 +92,8 @@ The basic requirement is a UNIX/Linux (Mac OS X is UNIX underneath) command line
 
 On the Mac, most of this can be installed using [HomeBrew](http://mxcl.github.io/homebrew/).
 
+In addition, you'll need to setup EC2 to 
+
 QuickStart
 ----------
 
