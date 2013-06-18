@@ -31,6 +31,15 @@ source ${LOCALRC}
 DATA_URLS=$( provision_private_data "${PRIVATE_DATA_URLS}" )
 debug "S3 new URLS" ${DATA_URLS}
 
+# 
+# Create an RDS instance 
+#
+if [ "y" = "${USE_RDS}" ]; then 
+	MYSQL_ADMIN_URI=$( create_rds_mysql_instance )
+fi
+
+debug "Setup new RDS MySQL instance at \"${MYSQL_ADMIN_URI}\""
+
 #
 # Create a user-data file to provide to the instance
 #  This file, in this case a shell script, will be

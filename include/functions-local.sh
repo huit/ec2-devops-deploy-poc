@@ -162,3 +162,36 @@ function get_instance_hostname {
 	hname=$( ec2-describe-instances ${inst_id} | grep INSTANCE | awk '{print $4}' )
 	echo $hname
 }
+
+function create_rds_mysql_instance {
+	
+	local inst_id="db$( create_uuid | sed 's/-//g' )"
+	local storage=10 #GB
+	local class=db.m1.small
+	local passwd=$( create_uuid | sed 's/-//g' )	
+	
+	local cmd="rds-create-db-instance ${inst_id} \
+		--allocated-storage  ${storage}  \
+		--db-instance-class  ${class} \
+		--engine  mysql \
+		--master-user-password  ${passwd} \
+		--master-username root \
+		--db-name  ${inst_id}"
+
+	errecho	$cmd
+	$cmd > /dev/null
+		
+	# wait for a hostname to be established	
+	hostname="(nil)"
+	while [ "(nil)" = "${hostname}" ]; do
+		sleep 5 
+		echo Checking if database instance ${inst_id} has a hostname ...
+		result=$( rds-describe-db-instances ${inst_id} --show-long | grep DBINSTANCE )
+		hostname=$( echo $result | awk -F, '{print $10}' )
+	done
+
+	local connection_string="mysql://root:${passwd}@${hostname}/${inst_id}"
+      
+    errecho  ${connection_string}
+    echo ${connection_string}
+}
