@@ -29,9 +29,11 @@ function prepare_rhel6_for_puppet {
 		rpm -ihv ${EPEL_RPM} || /bin/true		
 	fi
 	
+	# We need to disable yum priorities, because of the stupid Amazon repo priorities 
+	#  prevent getting latest puppet
 	export PATH="${PATH}:/usr/local/bin"
 	PKGS="${REQUIRED_PKGS} ${extra_pkgs}"
-	yum -y --enablerepo=epel install ${PKGS}
+	yum -y --enablerepo=epel --disableplugin=priorities install ${PKGS}
 	
 	# install r10k using gem
 	gem install r10k
@@ -127,7 +129,8 @@ function git_pull {
 	if ! [ x = "x${branch}" ]; then 
 		branch_arg="--branch $branch"
 	fi
-git clone ${branch_arg} $repo 
+	
+	git clone ${branch_arg} $repo 
 	dir=$( echo ${repo} | awk -F/ '{print $NF}' | sed 's/\.git//' )
 	cd ${dir}
 	
