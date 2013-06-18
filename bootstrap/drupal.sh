@@ -105,7 +105,7 @@ install_drupal_modules() {
 	MODS="${1}"
 	for mod in ${MODS}; do
 		drush dl ${mod} -y 
-		#drush en ${mod} -y	
+		drush en ${mod} -y	
 	done
 	cd ${orig_dir}
 }
@@ -173,7 +173,7 @@ setup_site_database() {
 		
 	# this should blow away original database
 	drush sql-create -y \
-        --db-url={DB_URL} \
+        --db-url=${DB_URL} \
         --db-su=${DB_ROOT_USER} \
         --db-su-pw=${DB_ROOT_PWD}
     
@@ -189,7 +189,8 @@ setup_site_database() {
 		mysql -u ${DB_ROOT_USERNAME} -p${DB_ROOT_PWD} ${DB_NAME} 
 	
 		# clear out any cache tables
-		drush cache-clear 1 --db-url={DB_URL}
+		cd /var/www/drupal
+		drush cache-clear all
 		
 		#CACHES=$( echo "show tables;" | mysql drupal -ppassword | grep cache )
 		#for CACHE in $CACHES; do
@@ -221,6 +222,7 @@ configure_settings_php() {
 
 configure_varnish_caching() {
 
+	cd /var/www/drupal
 	drush vset cache 1 
 	
 	cat >> ${DRUPAL_ROOT}/sites/default/settings.php <<"EOF"
@@ -261,7 +263,7 @@ echo "Installing desired extra modules ... "
 install_drupal_modules "${DRUPAL_MODULES}"
 
 # Check for customizations ...
-if ! [ -z ${APP_REPO_URL} -a -z ${APP_ARCHIVE_FILE} ]; then
+if ! [ -z "${APP_REPO_URL}" -a -z "${APP_ARCHIVE_FILE}" ]; then
 
 	echo "Installing any custom Drupal Code ..."
 	install_custom_drupal_code
@@ -282,8 +284,9 @@ configure_varnish_caching
 # install varnish drush module, so that we can purge the cache, etc.
 install_drupal_modules "varnish"
 
-# Fix up the database as needed
+# Fix up the database as needed, and clear the cache
 cd /var/www/drupal && drush updatedb -y
+cd /var/www/drupal && drush cache-clear all
 
 service httpd restart 
 service varnish restart 
