@@ -81,7 +81,7 @@ Given these assumptions, more concretely let's do this:
 Requirements
 ------------
 
-The basic requirement is a UNIX/Linux command line and various client tools. IN particular:
+The basic requirement is a UNIX/Linux (Mac OS X is UNIX underneath) command line and various client tools. In particular:
 
 - A basic Linux/UNIX command environment, including BASH, awk, grep, etc.
 - Install the EC2 command line utilities 
@@ -90,6 +90,9 @@ The basic requirement is a UNIX/Linux command line and various client tools. IN 
 - uuidgen command line tool to create uuids
 - Git command line
 
+On the Mac, most of this can be installed using [HomeBrew](http://mxcl.github.io/homebrew/).
+
+In addition, you'll need to setup EC2 to 
 
 QuickStart
 ----------
@@ -99,10 +102,34 @@ machine, using the EC2 command line tools. Ultimately, we'll document how to ini
 the start and build of the client system from other mechanisms, including from a CI build
 system.
 
-To start, clone this repository (see the top of the page) then edit the _localrc_ file
-to reflect your specific information, and to choose a bootstrap script to provide 
-to cloud-init on the newly launched instance. In particular, change all the "EC2_*"
-variables to point to your own account resources, and feel free to turn off debugging (set to "n").
+To start, we need to setup some things in EC2 so that we can access the site and the host. From the
+EC2 web console at 
+
+    http://console.aws.amazon.com/
+    
+connect the the console for EC2. From here, create an SSH keypair, and download the keypair 
+to your laptop into a secure directory (i.e. `~/.ssh/`). Then on a Linux or Mac platform, 
+fix the permssions on this key, and load it into an SSH agent by running the 
+command
+
+    $ chmod ~/.ssh/mykey.pem
+    $ ssh-add ~/.ssh/mykey.pem
+    
+Once loaded, you are ready to login to the host. You'll need to reload the key into the 
+ssh-agent every time you logout and back in.
+
+Next you'll need to create a "security-group" -- or set of EC2 firewall rules -- for accessing the
+website and host when it's running. Make sure to open ports 22 for SSH and 80 & 443 for web access.
+For a dev/test environment that doesn't contain sensitive data and is temporary, you can open
+this to the internet; otherwise restrict access to Harvard subnets.
+
+Note both the name of the security group and the keyapir you created for later.
+
+Next, clone this repository (see the top of the page) then edit the _localrc_ file
+to reflect your specific information (i.e. keypair and security group, instance size, etc.), 
+and to choose a bootstrap script to provide to cloud-init on the newly launched instance. 
+In particular, change all the "EC2_*" variables to point to your own account resources, 
+and feel free to turn off debugging (set to "n").
 
     $ git clone [this repository]
     $ cd ec2-devops-deploy-poc
@@ -154,11 +181,14 @@ and to install and configure the application. The current options include:
 - [Drupal](http://drupal.org)
 - [OpenScholar](http://openscholar.harvard.edu/)
 - [Wordpress](http://wordpress.org/)
+- [MediaWiki](http://mediawiki.org)
 - [Jenkins CI Server](http://jenkins-ci.org/)
 
 In addition, some play cases for OpenShift and OpenStack.
 
 Here we'll examine a Drupal installation.
+
+=== Drupal ===
 
 To do this, we need to find or build a few set of data:
 

@@ -35,49 +35,43 @@ EXTRA_PKGS="emacs-nox telnet"
 PUPPET_REPO_URL=https://github.com/robparrott/puppet-drupal.git
 PUPPET_REPO_BRANCH=master
 
-
-
-
-DRUPAL_REPO_URL=https://github.com/robparrott/drupal-poc.git
+DRUPAL_REPO_URL=http://git.drupal.org/project/drupal.git
 DRUPAL_REPO_BRANCH=7.x
 
 # list of additional drupal modules to install
-DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  \
-                shield  site_map views_bulk_operations \
-                views_extra_handlers views_field_view  \
-                views_rss  views_xml_backend"
+#DRUPAL_MODULES="blazemeter entityreference  google_cse qtip  \
+#                shield  site_map views_bulk_operations \
+#                views_extra_handlers views_field_view  \
+#                views_rss  views_xml_backend"
+DRUPAL_MODULES="google_cse"
+
 
 #
 # APPLICATION
 #
 
+# Choose a git repo or a tarball of the application data
+APP_REPO_URL=                              # git clonable URL
+APP_REPO_BRANCH=      
+APP_ARCHIVE_FILE=custom-drupal-code.tgz    # gzipped tarball
+
+SITE_DATA=files.tar.gz                     # Must be tar-gzipped, *.tgz
+
+SITE_DATABASE_FILE=website.sql.gz     # Must be gzipped SQL file ... *.sql.gz
+
 CUSTOM_DRUPAL_MODULES="huit_search huit_voice_mail"
+
 DRUPAL_PROFILE_NAME=huit
 
 # URLs of data in S3 that we want to instance to access, but
 #  which is not public.
+PRIVATE_DATA_URLS="s3://huit.harvard.edu/data/${SITE_DATA} \
+                   s3://huit.harvard.edu/data/${APP_ARCHIVE_FILE} \
+                   s3://huit.harvard.edu/data/${SITE_DATABASE_FILE} "
 
-PRIVATE_DATA_URLS="s3://huit.harvard.edu/data/files.tar.gz \
-                   s3://huit.harvard.edu/data/custom-drupal-code.tgz \
-                   s3://huit.harvard.edu/data/website.sql.gz"
 
-# Choose a git repo or a tarball of the application data
-APP_REPO_URL=
-APP_REPO_BRANCH=
 
-APP_ARCHIVE=huit-drupal-code.tgz
 
-#
-# APPLICATION DATA
-#
-#  Pull this data as gzipped archives from S3
-# 
-
-# Must be gzipped ... *.gz
-SITE_DATABASE_FILE=huit_website.sql.gz
-
-# Must be tar-gzipped, *.tgz
-SITE_DATA=files.tar.gz
 
 
 
