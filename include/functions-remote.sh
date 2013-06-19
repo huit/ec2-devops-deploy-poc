@@ -130,6 +130,7 @@ function git_pull {
 		branch_arg="--branch $branch"
 	fi
 	
+	
 	git clone ${branch_arg} $repo 
 	dir=$( echo ${repo} | awk -F/ '{print $NF}' | sed 's/\.git//' )
 	cd ${dir}
