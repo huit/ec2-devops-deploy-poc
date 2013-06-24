@@ -38,7 +38,7 @@ if [ "y" = "${USE_RDS}" ]; then
 	MYSQL_ADMIN_URI=$( create_rds_mysql_instance )
 fi
 
-debug "Setup new RDS MySQL instance at \"${MYSQL_ADMIN_URI}\""
+[ -z "${MYSQL_ADMIN_URI}" ] || debug "Setup new RDS MySQL instance at \"${MYSQL_ADMIN_URI}\""
 
 #
 # Create a user-data file to provide to the instance
