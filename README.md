@@ -182,6 +182,7 @@ and to install and configure the application. The current options include:
 - [OpenScholar](http://openscholar.harvard.edu/)
 - [Wordpress](http://wordpress.org/)
 - [MediaWiki](http://mediawiki.org)
+- [Ruby on Rails Sample App](http://rubyonrails.org)
 - [Jenkins CI Server](http://jenkins-ci.org/)
 
 In addition, some play cases for OpenShift and OpenStack.
