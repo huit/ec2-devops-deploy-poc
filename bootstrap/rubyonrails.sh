@@ -29,10 +29,15 @@ prepare_rhel6_for_puppet ${EXTRA_PKGS}
 #---------------------------------------
 
 # Install Rails without documentation for saving time
-gem install rails --no-rdoc --no-ri
+gem install rails -v 3.2.13 --no-rdoc --no-ri 
+
+if [ $? -ne 0 ]
+then
+  	exit
+fi
 
 # Start mysqld
-service mysqld start 
+service mysqld start
 
 #----------------------------
 # Create a demo RoR web site
