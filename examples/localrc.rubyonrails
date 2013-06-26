@@ -29,8 +29,6 @@ EC2_SECURITY_GROUP=webserver       # Security group which allows for Web & SSH a
 BOOTSTRAP=bootstrap/rubyonrails.sh
 
 EXTRA_PKGS="emacs-nox telnet httpd mysql mysql-server mysql-devel gcc-c++"
-#PUPPET_REPO_URL=https://github.com/huit/wordpress-puppet-build.git
-#PUPPET_REPO_BRANCH=master
 
 
 
